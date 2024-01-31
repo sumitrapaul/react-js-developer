@@ -20,7 +20,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/details/:id",
-        element: <ShowDetails/>
+        element: <ShowDetails/>,
+        loader:({params}) => fetch(`https://api.tvmaze.com/shows?${params.id}`)
       },
     ],
   },
