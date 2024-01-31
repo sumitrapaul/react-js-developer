@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import Swal from "sweetalert2";
 
 const ShowDetails = () => {
   const { id } = useParams();
@@ -21,6 +22,10 @@ const ShowDetails = () => {
   const customButtonStyle = {
     background: "linear-gradient(30deg, #0891b2, #a21caf)",
   };
+  const customStyle = {
+    background: "linear-gradient(30deg, #e9d5ff, #e0e7ff)",
+    marginTop: '20px'
+  };
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -33,11 +38,32 @@ const ShowDetails = () => {
     }
     localStorage.setItem('bookingData',JSON.stringify(bookingData))
     handleClose()
+    Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Movie Ticket booking successfully!!",
+        showConfirmButton: false,
+        timer: 1500
+      });
   }
 
   return (
     <div>
-      <Card>
+      <Card style={customStyle}>
+      {showDetails?.image ? (
+              <Card.Img
+                variant="top"
+                src={showDetails?.image?.original}
+                style={{ height: "650px" }}
+              />
+            ) : (
+              <Card.Img
+                variant="top"
+                src=""
+                alt="Image not available"
+                style={{ height: "250px" }}
+              />
+            )}
         <Card.Header>{showDetails?.name}</Card.Header>
         <Card.Body>
           <Card.Title>Type: {showDetails?.type}</Card.Title>
